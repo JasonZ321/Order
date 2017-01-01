@@ -1,5 +1,27 @@
 import { Meteor } from 'meteor/meteor';
 import { Shop } from '../imports/collection/shop';
+import { Image } from '../imports/collection/image';
+
+function setUpImageServer() {
+  Image.allow({
+    'insert': function() {
+        // add custom authentication code here
+        return true;
+    },
+    'update': function() {
+        // add custom authentication code here
+        return true;
+    },
+    'remove': function() {
+        // add custom authentication code here
+        return true;
+    },
+    download: function(userId, fileObj) {
+        return true
+    }
+  });
+}
+
 function publish() {
 	Meteor.publish('shopByOwner', function(userId) {
 		return Clubs.find({'owner': userId});
@@ -11,11 +33,13 @@ function publish() {
 		return Meteor.users.find({_id: this.userId});
 	});
 	Meteor.publish('currentShop', function() {
+		debugger;
 		return Shop.find({owner: this.userId});
 	});
 }
 
 Meteor.startup(() => {
+	setUpImageServer();
   // code to run on server at startup
 	publish();
 	Accounts.onCreateUser(function(options, user) {

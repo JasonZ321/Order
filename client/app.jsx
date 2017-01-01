@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Entry from './components/entry';
 import Login from './components/login';
-import UserApp from './components/user/user_app';
+import ShopAppContainer from './components/shop/shop_app_container';
+import OrderApp from './components/shop/order/order_app';
+import MenuApp from './components/shop/menu/menu_app';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -16,7 +18,10 @@ const routes = (
     <Router history={browserHistory} >
       <Route path="/" component={Entry} />
       <Route path="/login" component={Login} />
-      <Route path="/user/:userId" component={UserApp} />
+      <Route path="/shop/:userId" component={ShopAppContainer} >
+        <Route path='/shop/:userId/order' component={OrderApp} />
+        <Route path='/shop/:userId/menu' component={MenuApp} />
+      </Route>
     </Router>
   </MuiThemeProvider>
 );

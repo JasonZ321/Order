@@ -18,7 +18,7 @@ class Login extends Component {
 		this.setState({popupOpen:false});
 	}
 	navigateToUserPage(userId) {
-		const url = `/user/${userId}`;
+		const url = `/shop/${userId}`;
 		browserHistory.push(url);
 	}
 	onLogin(event) {
@@ -26,8 +26,8 @@ class Login extends Component {
 		const self = this;
 		const {username, password} = this.refs;
 		if (username.value && password.value) {
-			loginShopUser(username.value, password.value, function(userId) {
-				self.navigateToUserPage(userId);
+			loginShopUser(username.value, password.value, function({owner}) {
+				self.navigateToUserPage(owner);
 			});
 		} else {
 			alert('Invalid input!');

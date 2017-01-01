@@ -13,11 +13,18 @@ Meteor.methods({
 			});
 		}
 	},
-	'clubs.update': function(shopId, shop) {
+	'shop.update': function(shopId, shop) {
 		if (shopId && shop) {
 			Shop.update(shopId, {
 	      $set: { ...shop },
 	    });
+		}
+	},
+	'shop.avatar': function(shopId, avatarURL) {
+		if(shopId && avatarURL) {
+			Shop.update(shopId, {
+				$set: { avatarURL },
+			});
 		}
 	}
 });

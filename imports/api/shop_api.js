@@ -11,3 +11,14 @@ export function createShop(shop, callback) {
 		}
 	});
 }
+
+export function uploadShopAvatar(shopId, avatarURL, callback) {
+	Meteor.call('shop.avatar', shopId, avatarURL, function(error, result) {
+		if(error) {
+			console.error(error);
+		}
+		if(callback) {
+			callback(error, result);
+		}
+	})
+}
