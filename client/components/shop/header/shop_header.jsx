@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import AppBar from 'material-ui/AppBar';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
 
 const styles = {
   appBar: {
@@ -11,6 +13,12 @@ const styles = {
    	padding: '20px',
 		width: '40%'
   }
+};
+
+const flexContainer = {
+  display: 'flex',
+  flexDirection: 'row',
+  padding: 0,
 };
 
 class ShopHeader extends Component {
@@ -26,9 +34,6 @@ class ShopHeader extends Component {
 		browserHistory.push('/');
     location.reload();
 	}
-	handleTabChange(value, e, tab) {
-		browserHistory.push(tab.props.route);
-	}
 	renderShopTabs() {
 		const userId = this.props.shop.owner;
 		const mainURL =`/shop/${userId}`;
@@ -37,11 +42,20 @@ class ShopHeader extends Component {
 
 		return (
 			<div>
-				<Tabs onChange={this.handleTabChange.bind(this)}>
-					<Tab label='首页' route={mainURL}></Tab>
-					<Tab label='订单管理' route={orderURL}></Tab>
-					<Tab label='菜单管理' route={menuURL}></Tab>
-			 	</Tabs>
+				<Menu listStyle={flexContainer}>
+          <MenuItem
+            containerElement={<Link to={mainURL} />}
+            primaryText="首页"
+          />
+          <MenuItem
+            containerElement={<Link to={orderURL} />}
+            primaryText="订单管理"
+          />
+          <MenuItem
+            containerElement={<Link to={menuURL} />}
+            primaryText="菜单管理"
+          />
+			 	</Menu>
 		</div>
 		);
 	}

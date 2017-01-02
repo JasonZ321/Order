@@ -9,7 +9,9 @@ function reactiveMapper(props, onData) {
 	if(Meteor.subscribe('currentShop').ready()) {
 		const shop = Shop.findOne({});
 		if(shop) {
-			onData(null, {shop});
+			onData(null, {shop, authorized: true});
+		} else {
+			onData(null, {null, authorized: false});
 		}
 	}
 }

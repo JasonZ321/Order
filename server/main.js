@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Shop } from '../imports/collection/shop';
 import { Image } from '../imports/collection/image';
+import { Item } from '../imports/collection/item';
 
 function setUpImageServer() {
   Image.allow({
@@ -33,8 +34,10 @@ function publish() {
 		return Meteor.users.find({_id: this.userId});
 	});
 	Meteor.publish('currentShop', function() {
-		debugger;
 		return Shop.find({owner: this.userId});
+	});
+	Meteor.publish("itemsForShop", function(shopId){
+		return Item.find({shop: shopId});
 	});
 }
 
